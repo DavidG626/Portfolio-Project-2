@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holliston News</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mediaqueries.css')}}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&display=swap" rel="stylesheet">
+  </head>
+  
+
+  <body >
+  
+    <div class="container-1">
+    <div class="box-1">
+      <a class="logo" href="{{ url_for('landing_page') }}">
+        Holliston News 
+      </a>
+    </div>    
+        
+      
+    <nav id="nav">
+      <ul class="nav-links">
+            <li><a href="/headlines">Headlines</a></li>
+            <li><a href="/business">Business</a></li>
+            <li><a href="/technology">Technology</a></li>
+            <li><a href="/science">Science</a></li>
+            <li><a href="/health">Health</a></li>
+            <li><a href="/sports">Sports</a></li>
+            <li><a href="/entertainment">Entertainment</a></li>
+        </ul>
+    </nav>  
+  
+    <nav id="hamburger-nav">
+      <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+      </div>
+
+      <div class="menu-links">
+        <ul>
+          <li><a href="/headlines" onclick="toggleMenu()">Headlines</a></li>
+          <li><a href="/business" onclick="toggleMenu()">Business</a></li>
+          <li><a href="/technology" onclick="toggleMenu()">Technology</a></li>
+          <li><a href="/science" onclick="toggleMenu()">Science</a></li>
+          <li><a href="/health" onclick="toggleMenu()">Health</a></li>
+          <li><a href="/sports" onclick="toggleMenu()">Sports</a></li>
+          <li><a href="/entertainment" onclick="toggleMenu()">Entertainment</a></li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+  
+    <div class="search-box">
+      <form action="/search" method="get">
+        <input class="search-input" type="text" name="q" placeholder="Search The News">
+        <button class="search-box-button" type="submit">Search</button>
+      </form>
+  </div>
+ 
+  {% if search_results %}
+
+  <div class="search-results">
+    <h2>Business News</h2>
+  </div>
+</div>
+</div>
+<div class="container-2">
+  {% for article in search_results %}
+  {% if article.title and article.url and article.urlToImage %}
+  
+  
+  <div>
+    <a class="articles" href="{{ article.url }}" target="_blank">
+        <img src="{{ article.urlToImage }}" alt="s2" style="width: 100%;" height="300px"><br><br>
+        {{ article.title }}
+    </a>
+  </div>
+  
+    
+ 
+
+    {% endif %}
+    {% endfor %}
+
+
+    {% elif error_message %}
+      <div class="error-message">{{ error_message }}</div>
+    {% endif %}
+    </div>
+
+</div>    
+
+</body>
+</html>
+
